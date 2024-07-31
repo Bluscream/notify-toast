@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
-using Notify_Toast.Model;
+using notify_toast.Model;
 using System.Configuration;
 
-namespace Notify_Toast {
+namespace notify_toast {
     internal static class Program {
 
         private static WindowsFormsSynchronizationContext _synchronizationContext;

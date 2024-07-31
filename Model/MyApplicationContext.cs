@@ -2,7 +2,7 @@
 using SoundSwitch.Framework.Banner;
 using SoundSwitch.Framework.Banner.Position;
 
-namespace Notify_Toast.Model {
+namespace notify_toast.Model {
     public class MyApplicationContext : System.Windows.Forms.ApplicationContext {
         private readonly BannerManager _bannerManager = new();
         private readonly BannerPositionFactory _bannerPositionFactory = new();

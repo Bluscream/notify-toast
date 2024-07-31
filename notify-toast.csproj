@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Notify_Toast</RootNamespace>
+    <RootNamespace>notify_toast</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Framework\Threading\**" />

@@ -33,7 +33,7 @@
             // 
             // pbxLogo
             // 
-            this.pbxLogo.Image = global::Notify_Toast.Properties.Resources.powershell_ise.ToBitmap();
+            this.pbxLogo.Image = global::notify_toast.Properties.Resources.powershell_ise.ToBitmap();
             this.pbxLogo.Location = new System.Drawing.Point(5, 5);
             this.pbxLogo.Margin = new System.Windows.Forms.Padding(5);
             this.pbxLogo.Name = "pbxLogo";

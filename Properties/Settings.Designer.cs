@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Notify_Toast.Properties {
+namespace notify_toast.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
