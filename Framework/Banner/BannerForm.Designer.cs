@@ -1,4 +1,6 @@
-﻿namespace SoundSwitch.Framework.Banner {
+﻿using notify_toast.Util;
+
+namespace SoundSwitch.Framework.Banner {
     partial class BannerForm {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +35,7 @@
             // 
             // pbxLogo
             // 
-            this.pbxLogo.Image = global::notify_toast.Properties.Resources.powershell_ise.ToBitmap();
+            this.pbxLogo.Image = null;
             this.pbxLogo.Location = new System.Drawing.Point(5, 5);
             this.pbxLogo.Margin = new System.Windows.Forms.Padding(5);
             this.pbxLogo.Name = "pbxLogo";

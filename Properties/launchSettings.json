@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "notify-toast": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Notification Message\" \"Notification Title\" \"https://github.com/Bluscream/homeassistant-assets/blob/master/logo/home-assistant-logomark-color-on-light.png?raw=true\""
+    }
+  }
+}
