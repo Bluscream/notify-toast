@@ -10,6 +10,7 @@
     <RootNamespace>notify_toast</RootNamespace>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AssemblyName>toast</AssemblyName>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
