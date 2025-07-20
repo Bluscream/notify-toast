@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS8600 // Possible null value conversion
+
 using notify_toast.Properties;
 using System.ComponentModel;
 using System.Configuration;
