@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Reflection;
 
-namespace notify_toast {
+namespace NotificationBanner {
     internal static class Config {
         internal static string Time => ConfigurationManager.AppSettings["BannerOnScreenTime"]!;
         internal static string MaxNumberNotification => ConfigurationManager.AppSettings["MaxNumberNotification"]!;

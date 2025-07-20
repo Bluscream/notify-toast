@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace notify_toast.Util {
+namespace NotificationBanner.Util {
     internal static class Extensions {
         private const string Base64Prefix = "data:image/";
         internal static Image ImageFromBase64(this string base64String) {

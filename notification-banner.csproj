@@ -7,9 +7,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>notify_toast</RootNamespace>
+    <RootNamespace>notification_banner</RootNamespace>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <AssemblyName>toast</AssemblyName>
+    <AssemblyName>notification-banner</AssemblyName>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
   </PropertyGroup>
 

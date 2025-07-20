@@ -1,9 +1,9 @@
 #pragma warning disable CA1416 // Windows-only API
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
-using notify_toast.Model;
+using NotificationBanner.Model;
 
-namespace notify_toast {
+namespace NotificationBanner {
     internal static class Program {
         private static WindowsFormsSynchronizationContext? _synchronizationContext;
         [DllImport("user32.dll")]

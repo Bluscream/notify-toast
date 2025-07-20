@@ -1,8 +1,8 @@
-﻿using notify_toast.Util;
-using NotifyToast.Banner;
-using NotifyToast.Banner.Position;
+﻿using NotificationBanner.Util;
+using NotificationBanner.Banner;
+using NotificationBanner.Banner.Position;
 
-namespace notify_toast.Model {
+namespace NotificationBanner.Model {
     internal class MyApplicationContext : System.Windows.Forms.ApplicationContext {
         private readonly static Size MaxImageSize = new Size() { Width = Config.MaxImageSize, Height = Config.MaxImageSize };
         private readonly BannerManager _bannerManager = new();
