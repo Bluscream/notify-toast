@@ -14,6 +14,7 @@
  ********************************************************************/
 
 using System;
+using System.ComponentModel; // For Win32Exception
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;

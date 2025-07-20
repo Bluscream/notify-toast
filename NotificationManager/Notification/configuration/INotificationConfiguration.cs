@@ -20,7 +20,6 @@ using SoundSwitch.Framework.Banner;
 namespace SoundSwitch.Framework.NotificationManager.Notification.Configuration {
     public interface INotificationConfiguration {
         NotifyIcon Icon { get; set; }
-        Stream DefaultSound { get; set; }
         BannerPositionEnum BannerPosition { get; set; }
         TimeSpan Ttl { get; set; }
     }

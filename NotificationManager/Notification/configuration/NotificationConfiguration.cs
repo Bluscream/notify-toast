@@ -22,10 +22,9 @@ namespace SoundSwitch.Framework.NotificationManager.Notification.Configuration {
     public class NotificationConfiguration : INotificationConfiguration {
         public NotificationConfiguration() {
             Icon = new NotifyIcon();
-            DefaultSound = Stream.Null;
+            // Removed unused property: DefaultSound
         }
         public NotifyIcon Icon { get; set; }
-        public Stream DefaultSound { get; set; }
         public BannerPositionEnum BannerPosition { get; set; }
         public TimeSpan Ttl { get; set; }
     }

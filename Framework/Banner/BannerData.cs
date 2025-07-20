@@ -39,12 +39,6 @@ namespace SoundSwitch.Framework.Banner {
         public Image? Image { get; internal set; }
 
         /// <summary>
-        /// On what device to play the <see cref="CachedSound"/>
-        /// </summary>
-        [AllowNull]
-        public string? CurrentDeviceId { get; internal set; }
-
-        /// <summary>
         /// Position of the banner
         /// </summary>
         public IPosition? Position { get; internal set; }
