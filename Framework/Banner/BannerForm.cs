@@ -14,8 +14,6 @@
  ********************************************************************/
 
 using System;
-using System.ComponentModel;
-using System.Configuration;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,21 +66,6 @@ namespace SoundSwitch.Framework.Banner {
             }
         }
 
-        // /// <summary>
-        // /// Override the parameters used to create the window handle.
-        // /// Ensure that the window will be top-most and do not activate or take focus.
-        // /// </summary>
-        // protected override CreateParams CreateParams
-        // {
-        //     get
-        //     {
-        //         CreateParams p = base.CreateParams;
-        //         p.ExStyle |= 0x08000000; // WS_EX_NOACTIVATE
-        //         p.ExStyle |= 0x00000008; // WS_EX_TOPMOST
-        //         return p;
-        //     }
-        // }
-
         /// <summary>
         /// Called internally to configure pass notification parameters
         /// </summary>
@@ -103,11 +86,6 @@ namespace SoundSwitch.Framework.Banner {
             if (data.Image != null)
                 pbxLogo.Image = data.Image;
 
-
-            //if (data.SoundFile != null) {
-            //    DestroySound();
-            //    PrepareSound(data);
-            //}
 
             _hiding = false;
             Opacity = .9;
@@ -141,14 +119,6 @@ namespace SoundSwitch.Framework.Banner {
                 _hiding = true;
                 Dispose();
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        private void PrepareSound(BannerData data) {
-            //Threading.JobScheduler.Instance.ScheduleJob(new PlaySoundJob(data.CurrentDeviceId, data.SoundFile), _cancellationTokenSource.Token);
         }
 
         /// <summary>

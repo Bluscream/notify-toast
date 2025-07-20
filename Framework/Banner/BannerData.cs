@@ -39,12 +39,6 @@ namespace SoundSwitch.Framework.Banner {
         public Image? Image { get; internal set; }
 
         /// <summary>
-        /// Gets/sets the path for a wav sound to be playedc during the notification, this is optional.
-        /// </summary>
-        //[AllowNull]
-        //public CachedSound SoundFile { get; internal set; }
-
-        /// <summary>
         /// On what device to play the <see cref="CachedSound"/>
         /// </summary>
         [AllowNull]

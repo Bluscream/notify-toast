@@ -20,14 +20,11 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Framework\Threading\**" />
-    <EmbeddedResource Remove="Framework\Threading\**" />
-    <None Remove="Framework\Threading\**" />
+    <!-- Removed: Framework/Threading/JobScheduler.cs -->
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="NotificationManager\INotification.cs" />
-    <Compile Remove="NotificationManager\NotificationFactory.cs" />
+    <!-- Removed: NotificationManager/INotification.cs, NotificationManager/NotificationFactory.cs -->
   </ItemGroup>
 
   <ItemGroup>
