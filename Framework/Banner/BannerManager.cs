@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace SoundSwitch.Framework.Banner {
+namespace NotifyToast.Banner {
     /// <summary>
     /// Class to manage the banners. This class is the entrypoint to show a notification banner.
     /// </summary>

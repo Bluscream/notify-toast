@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 ********************************************************************/
 
-namespace SoundSwitch.Framework.Banner
+namespace NotifyToast.Banner
 {
     public enum BannerPositionEnum
     {

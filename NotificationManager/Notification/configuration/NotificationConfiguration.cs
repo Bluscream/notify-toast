@@ -3,9 +3,9 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using SoundSwitch.Framework.Banner;
+using NotifyToast.Banner;
 
-namespace SoundSwitch.Framework.NotificationManager.Notification.Configuration {
+namespace NotifyToast.NotificationManager.Notification.Configuration {
     public class NotificationConfiguration : INotificationConfiguration {
         public NotificationConfiguration() {
             Icon = new NotifyIcon();

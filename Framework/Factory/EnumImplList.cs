@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace SoundSwitch.Framework.Factory
+namespace NotifyToast.Framework.Factory
 {
     /// <summary>
     ///     Used to represent the list of enum buildable by a factory

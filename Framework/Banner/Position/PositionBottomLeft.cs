@@ -15,7 +15,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SoundSwitch.Framework.Banner.Position {
+namespace NotifyToast.Banner.Position {
     internal class PositionBottomLeft : APosition, IPosition {
         public BannerPositionEnum TypeEnum => BannerPositionEnum.BottomLeft;
         public string Label => "Bottom Left";

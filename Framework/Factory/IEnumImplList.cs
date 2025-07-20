@@ -15,7 +15,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SoundSwitch.Framework.Factory
+namespace NotifyToast.Framework.Factory
 {
     public interface IEnumImplList<TEnum, TEnumImpl> : IList<TEnumImpl> where TEnum : Enum, IConvertible where TEnumImpl : IEnumImpl<TEnum>
     {

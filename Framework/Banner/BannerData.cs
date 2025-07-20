@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using SoundSwitch.Framework.Banner.Position;
+using NotifyToast.Banner.Position;
 
-namespace SoundSwitch.Framework.Banner {
+namespace NotifyToast.Banner {
     /// <summary>
     /// Contains configuration data for the banner form.
     /// </summary>

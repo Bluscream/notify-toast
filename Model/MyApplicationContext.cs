@@ -1,6 +1,6 @@
 ﻿using notify_toast.Util;
-using SoundSwitch.Framework.Banner;
-using SoundSwitch.Framework.Banner.Position;
+using NotifyToast.Banner;
+using NotifyToast.Banner.Position;
 
 namespace notify_toast.Model {
     internal class MyApplicationContext : System.Windows.Forms.ApplicationContext {

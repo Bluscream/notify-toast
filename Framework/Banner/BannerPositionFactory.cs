@@ -12,15 +12,14 @@
  * GNU General Public License for more details.
  ********************************************************************/
 
-using SoundSwitch.Framework.Banner.Position;
-using SoundSwitch.Framework.Factory;
+using NotifyToast.Banner.Position;
+using NotifyToast.Framework.Factory;
 
-namespace SoundSwitch.Framework.Banner
+namespace NotifyToast.Banner
 {
-    public class BannerPositionFactory : AbstractFactory<BannerPositionEnum, IPosition>
+    public class BannerPositionFactory : NotifyToast.Framework.Factory.AbstractFactory<BannerPositionEnum, NotifyToast.Banner.Position.IPosition>
     {
-        private static readonly IEnumImplList<BannerPositionEnum, IPosition> Positions = new EnumImplList
-            <BannerPositionEnum, IPosition>
+        private static readonly NotifyToast.Framework.Factory.IEnumImplList<BannerPositionEnum, NotifyToast.Banner.Position.IPosition> Positions = new NotifyToast.Framework.Factory.EnumImplList<BannerPositionEnum, NotifyToast.Banner.Position.IPosition>
             {
                 new PositionTopLeft(),
                 new PositionTopCenter(),

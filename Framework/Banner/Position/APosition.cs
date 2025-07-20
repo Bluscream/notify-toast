@@ -15,7 +15,7 @@
 #pragma warning disable CA1416 // Windows-only API
 using System.Windows.Forms;
 
-namespace SoundSwitch.Framework.Banner.Position
+namespace NotifyToast.Banner.Position
 {
     internal class APosition
     {

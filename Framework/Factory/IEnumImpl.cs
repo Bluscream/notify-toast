@@ -14,7 +14,7 @@
 
 using System;
 
-namespace SoundSwitch.Framework.Factory
+namespace NotifyToast.Framework.Factory
 {
     public interface IEnumImpl<out TEnum> where TEnum : Enum, IConvertible
     {

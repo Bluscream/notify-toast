@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SoundSwitch.Framework.Factory
+namespace NotifyToast.Framework.Factory
 {
     public class DisplayEnumObject<TEnum> where TEnum : Enum, IConvertible
     {

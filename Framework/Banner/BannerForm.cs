@@ -7,8 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
+using SoundSwitch.UI.Menu.Util;
 
-namespace SoundSwitch.Framework.Banner {
+namespace NotifyToast.Banner {
     /// <summary>
     /// This class implements the UI form used to show a Banner notification.
     /// </summary>
@@ -79,7 +80,7 @@ namespace SoundSwitch.Framework.Banner {
             Opacity = .9;
             lblTop.Text = data.Title ?? string.Empty;
             lblTitle.Text = data.Text ?? string.Empty;
-            Region = Region.FromHrgn(UI.Menu.Util.RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+            Region = Region.FromHrgn(RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
             var screen = GetScreen();
             if (data.Position != null)

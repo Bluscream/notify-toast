@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 ********************************************************************/
 
-namespace SoundSwitch.Framework.NotificationManager
+namespace NotifyToast.NotificationManager
 {
     public enum NotificationTypeEnum
     {

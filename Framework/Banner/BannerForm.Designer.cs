@@ -1,6 +1,6 @@
 ﻿using notify_toast.Util;
 
-namespace SoundSwitch.Framework.Banner {
+namespace NotifyToast.Banner {
     partial class BannerForm {
         /// <summary>
         /// Required designer variable.

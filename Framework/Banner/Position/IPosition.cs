@@ -14,9 +14,9 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using SoundSwitch.Framework.Factory;
+using NotifyToast.Framework.Factory;
 
-namespace SoundSwitch.Framework.Banner.Position
+namespace NotifyToast.Banner.Position
 {
     public interface IPosition : IEnumImpl<BannerPositionEnum>
     {
