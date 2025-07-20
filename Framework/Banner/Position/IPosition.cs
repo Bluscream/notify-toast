@@ -14,9 +14,9 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using NotifyToast.Framework.Factory;
+using NotificationBanner.Framework.Factory;
 
-namespace NotifyToast.Banner.Position
+namespace NotificationBanner.Banner.Position
 {
     public interface IPosition : IEnumImpl<BannerPositionEnum>
     {

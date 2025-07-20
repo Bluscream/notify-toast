@@ -15,7 +15,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace NotifyToast.Framework.Factory
+namespace NotificationBanner.Framework.Factory
 {
     public interface IEnumImplList<TEnum, TEnumImpl> : IList<TEnumImpl> where TEnum : Enum, IConvertible where TEnumImpl : IEnumImpl<TEnum>
     {

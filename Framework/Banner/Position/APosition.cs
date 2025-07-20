@@ -15,7 +15,7 @@
 #pragma warning disable CA1416 // Windows-only API
 using System.Windows.Forms;
 
-namespace NotifyToast.Banner.Position
+namespace NotificationBanner.Banner.Position
 {
     internal class APosition
     {

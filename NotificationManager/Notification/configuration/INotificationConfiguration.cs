@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using NotifyToast.Banner;
+using NotificationBanner.Banner;
 
-namespace NotifyToast.NotificationManager.Notification.Configuration {
+namespace NotificationBanner.NotificationManager.Notification.Configuration {
     public interface INotificationConfiguration {
         NotifyIcon Icon { get; set; }
         BannerPositionEnum BannerPosition { get; set; }

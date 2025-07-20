@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 using SoundSwitch.UI.Menu.Util;
+using NotificationBanner.Banner;
 
-namespace NotifyToast.Banner {
+namespace NotificationBanner.Banner {
     /// <summary>
     /// This class implements the UI form used to show a Banner notification.
     /// </summary>

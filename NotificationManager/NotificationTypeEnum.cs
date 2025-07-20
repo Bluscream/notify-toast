@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 ********************************************************************/
 
-namespace NotifyToast.NotificationManager
+namespace NotificationBanner.NotificationManager
 {
     public enum NotificationTypeEnum
     {

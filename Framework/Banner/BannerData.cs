@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using NotifyToast.Banner.Position;
+using NotificationBanner.Banner.Position;
 
-namespace NotifyToast.Banner {
+namespace NotificationBanner.Banner {
     /// <summary>
     /// Contains configuration data for the banner form.
     /// </summary>

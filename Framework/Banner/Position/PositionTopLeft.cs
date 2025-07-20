@@ -15,7 +15,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace NotifyToast.Banner.Position {
+namespace NotificationBanner.Banner.Position {
     internal class PositionTopLeft : APosition, IPosition {
         public BannerPositionEnum TypeEnum => BannerPositionEnum.TopLeft;
         public string Label => "Top Left";

@@ -3,9 +3,9 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using NotifyToast.Banner;
+using NotificationBanner.Banner;
 
-namespace NotifyToast.NotificationManager.Notification.Configuration {
+namespace NotificationBanner.NotificationManager.Notification.Configuration {
     public class NotificationConfiguration : INotificationConfiguration {
         public NotificationConfiguration() {
             Icon = new NotifyIcon();

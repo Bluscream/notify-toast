@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NotifyToast.Framework.Factory
+namespace NotificationBanner.Framework.Factory
 {
     public class DisplayEnumObject<TEnum> where TEnum : Enum, IConvertible
     {

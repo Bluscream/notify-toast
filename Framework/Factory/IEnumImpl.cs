@@ -14,7 +14,7 @@
 
 using System;
 
-namespace NotifyToast.Framework.Factory
+namespace NotificationBanner.Framework.Factory
 {
     public interface IEnumImpl<out TEnum> where TEnum : Enum, IConvertible
     {

@@ -1,6 +1,4 @@
-﻿using notify_toast.Util;
-
-namespace NotifyToast.Banner {
+﻿namespace NotificationBanner.Banner {
     partial class BannerForm {
         /// <summary>
         /// Required designer variable.

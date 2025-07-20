@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace NotifyToast.Framework.Factory
+namespace NotificationBanner.Framework.Factory
 {
     /// <summary>
     /// Used to build factory based on Enums

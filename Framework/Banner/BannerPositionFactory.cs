@@ -12,14 +12,14 @@
  * GNU General Public License for more details.
  ********************************************************************/
 
-using NotifyToast.Banner.Position;
-using NotifyToast.Framework.Factory;
+using NotificationBanner.Banner.Position;
+using NotificationBanner.Framework.Factory;
 
-namespace NotifyToast.Banner
+namespace NotificationBanner.Banner
 {
-    public class BannerPositionFactory : NotifyToast.Framework.Factory.AbstractFactory<BannerPositionEnum, NotifyToast.Banner.Position.IPosition>
+    public class BannerPositionFactory : NotificationBanner.Framework.Factory.AbstractFactory<BannerPositionEnum, NotificationBanner.Banner.Position.IPosition>
     {
-        private static readonly NotifyToast.Framework.Factory.IEnumImplList<BannerPositionEnum, NotifyToast.Banner.Position.IPosition> Positions = new NotifyToast.Framework.Factory.EnumImplList<BannerPositionEnum, NotifyToast.Banner.Position.IPosition>
+        private static readonly NotificationBanner.Framework.Factory.IEnumImplList<BannerPositionEnum, NotificationBanner.Banner.Position.IPosition> Positions = new NotificationBanner.Framework.Factory.EnumImplList<BannerPositionEnum, NotificationBanner.Banner.Position.IPosition>
             {
                 new PositionTopLeft(),
                 new PositionTopCenter(),

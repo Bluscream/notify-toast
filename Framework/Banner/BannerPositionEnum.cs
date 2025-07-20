@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 ********************************************************************/
 
-namespace NotifyToast.Banner
+namespace NotificationBanner.Banner
 {
     public enum BannerPositionEnum
     {

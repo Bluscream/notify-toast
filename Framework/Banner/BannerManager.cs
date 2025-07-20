@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace NotifyToast.Banner {
+namespace NotificationBanner.Banner {
     /// <summary>
     /// Class to manage the banners. This class is the entrypoint to show a notification banner.
     /// </summary>
