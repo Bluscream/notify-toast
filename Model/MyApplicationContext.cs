@@ -24,14 +24,14 @@ namespace NotificationBanner.Model {
             if (titleArg != null) toastData.Title = titleArg;
             if (posArg != null) {
                 switch ((BannerPositionEnum)int.Parse(posArg)) {
-                    case BannerPositionEnum.TopCenter: toastData.Position = new PositionTopCenter(); break;
-                    case BannerPositionEnum.TopRight: toastData.Position = new PositionTopRight(); break;
-                    case BannerPositionEnum.BottomLeft: toastData.Position = new PositionBottomLeft(); break;
-                    case BannerPositionEnum.BottomCenter: toastData.Position = new PositionBottomCenter(); break;
-                    case BannerPositionEnum.BottomRight: toastData.Position = new PositionBottomRight(); break;
-                    case BannerPositionEnum.Center: toastData.Position = new PositionCenter(); break;
+                    case BannerPositionEnum.TopCenter: toastData.Position = new BannerPosition(BannerPositionEnum.TopCenter); break;
+                    case BannerPositionEnum.TopRight: toastData.Position = new BannerPosition(BannerPositionEnum.TopRight); break;
+                    case BannerPositionEnum.BottomLeft: toastData.Position = new BannerPosition(BannerPositionEnum.BottomLeft); break;
+                    case BannerPositionEnum.BottomCenter: toastData.Position = new BannerPosition(BannerPositionEnum.BottomCenter); break;
+                    case BannerPositionEnum.BottomRight: toastData.Position = new BannerPosition(BannerPositionEnum.BottomRight); break;
+                    case BannerPositionEnum.Center: toastData.Position = new BannerPosition(BannerPositionEnum.Center); break;
                     case BannerPositionEnum.TopLeft:
-                    default: toastData.Position = new PositionTopLeft(); break;
+                    default: toastData.Position = new BannerPosition(BannerPositionEnum.TopLeft); break;
                 }
             }
             if (timeArg != null) toastData.Ttl = TimeSpan.FromSeconds(int.Parse(timeArg));//TimeSpan.Parse(ConfigurationManager.AppSettings.Get("BannerOnScreenTime"));

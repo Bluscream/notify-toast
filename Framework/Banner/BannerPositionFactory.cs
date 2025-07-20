@@ -20,15 +20,15 @@ namespace NotificationBanner.Banner
     public class BannerPositionFactory : NotificationBanner.Framework.Factory.AbstractFactory<BannerPositionEnum, NotificationBanner.Banner.Position.IPosition>
     {
         private static readonly NotificationBanner.Framework.Factory.IEnumImplList<BannerPositionEnum, NotificationBanner.Banner.Position.IPosition> Positions = new NotificationBanner.Framework.Factory.EnumImplList<BannerPositionEnum, NotificationBanner.Banner.Position.IPosition>
-            {
-                new PositionTopLeft(),
-                new PositionTopCenter(),
-                new PositionTopRight(),
-                new PositionBottomLeft(),
-                new PositionBottomCenter(),
-                new PositionBottomRight(),
-                new PositionCenter()
-            };
+        {
+            new BannerPosition(BannerPositionEnum.TopLeft),
+            new BannerPosition(BannerPositionEnum.TopCenter),
+            new BannerPosition(BannerPositionEnum.TopRight),
+            new BannerPosition(BannerPositionEnum.BottomLeft),
+            new BannerPosition(BannerPositionEnum.BottomCenter),
+            new BannerPosition(BannerPositionEnum.BottomRight),
+            new BannerPosition(BannerPositionEnum.Center)
+        };
 
         public BannerPositionFactory() : base(Positions)
         {
