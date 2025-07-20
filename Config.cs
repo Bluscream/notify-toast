@@ -1,6 +1,4 @@
-﻿#pragma warning disable CS8600 // Possible null value conversion
-
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Configuration;
 using System.Reflection;
 
@@ -245,7 +243,7 @@ namespace notify_toast {
             "zFm26WWOpENZiZlPpepuUDAFiHzNM6PSkai3PrUWyNG3yzw2yJJvy34vWq320DHq3V8cunY0T2G+SNXz" +
             "jWfcLiV8SX7rmIIQDrDnwJLW+VDhrsUINxJn9sO1qHegM9qs6CXNmZ/YSWX1LOgXs350N1Jm9xPaNsj+" +
             "6AvZuE81+Zmd2yux73uLCCHQB+DEG/IuzQTyzUwz3tyxF3q3k2A90BfSHDPznXj3V/wjs+Sm1b9i5OU1" +
-            "26Cx8iM66gzAbCnSDC6E74oMKamNRHs+Z/XDs/wOnLNA13FHpygAAAABJRU5ErkJggg==";//GetDefaultValueFromAttribute<Settings>("Image");
+            "26Cx8iM66gzAbCnSDC6E74oMKamNRHs+Z/XDs/wOnLNA13FHpygAAAABJRU5ErkJggg==";
         }
 
         public static string GetDefaultValueFromAttribute<T>(string propertyName) {

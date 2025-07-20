@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-#pragma warning disable CA1416 // Windows-only API
 namespace notify_toast.Util {
     internal static class Extensions {
         private const string Base64Prefix = "data:image/";
