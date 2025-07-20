@@ -22,9 +22,12 @@ namespace notify_toast.Util {
             }
         }
         internal static Image? ParseImage(this string input) {
-            try { if (Uri.TryCreate(input, UriKind.Absolute, out var uri)) return GetImageAsync(uri).Result; } catch (Exception ex) { Console.WriteLine(ex.Message); }
-            // if (input.StartsWith(Base64Prefix))
-            try { return ImageFromBase64(input); } catch (Exception ex) { Console.WriteLine(ex.Message); }
+            if (input.StartsWith(Base64Prefix, StringComparison.OrdinalIgnoreCase)) {
+                try { return ImageFromBase64(input); } catch (Exception ex) { Console.WriteLine(ex.Message); return null; }
+            }
+            if (Uri.TryCreate(input, UriKind.Absolute, out var uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)) {
+                try { return GetImageAsync(uri).Result; } catch (Exception ex) { Console.WriteLine(ex.Message); return null; }
+            }
             return null;
         }
         public static Image Resize(this Image imgToResize, Size size) => new Bitmap(imgToResize, size) as Image;
