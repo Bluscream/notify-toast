@@ -18,7 +18,8 @@ namespace notify_toast.Model {
             var timeArg = args.Length > 3 ? args[3] : "10";
 
             var toastData = new BannerData();
-            if (imageArg != null) toastData.Image = imageArg.ParseImage().Resize(MaxImageSize);
+            var parsedImage = imageArg?.ParseImage();
+            if (parsedImage != null) toastData.Image = parsedImage.Resize(MaxImageSize);
             if (msgArg != null) toastData.Text = msgArg;
             if (titleArg != null) toastData.Title = titleArg;
             if (posArg != null) {

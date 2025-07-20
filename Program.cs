@@ -1,14 +1,15 @@
+#pragma warning disable CA1416 // Windows-only API
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using notify_toast.Model;
 
 namespace notify_toast {
     internal static class Program {
-        private static WindowsFormsSynchronizationContext _synchronizationContext;
+        private static WindowsFormsSynchronizationContext? _synchronizationContext;
         [DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
 
-        [HandleProcessCorruptedStateExceptions]
+        //[HandleProcessCorruptedStateExceptions]
         [STAThread]
         private static void Main(string[] args) {
             Thread.CurrentThread.Name = "Main Thread";

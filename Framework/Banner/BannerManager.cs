@@ -1,4 +1,5 @@
-﻿/********************************************************************
+﻿#pragma warning disable CA1416 // Windows-only API
+/********************************************************************
  * Copyright (C) 2015-2017 Antoine Aflalo
  *
  * This program is free software; you can redistribute it and/or
@@ -21,10 +22,10 @@ namespace SoundSwitch.Framework.Banner {
     /// Class to manage the banners. This class is the entrypoint to show a notification banner.
     /// </summary>
     public class BannerManager {
-        private static System.Threading.SynchronizationContext _syncContext;
+        private static System.Threading.SynchronizationContext? _syncContext;
         internal static int MaxNumberNotification => 1; //int.Parse(ConfigurationManager.AppSettings["MaxNumberNotification"]);
         private readonly Dictionary<Guid, BannerForm> _bannerForms = new();
-        private BannerForm _singleBanner;
+        private BannerForm? _singleBanner;
         private const int SPACING = 10;
 
         /// <summary>
@@ -37,17 +38,22 @@ namespace SoundSwitch.Framework.Banner {
                 return;
             }
 
+            if (_syncContext == null)
+                throw new InvalidOperationException("BannerManager.Setup() must be called before ShowNotification.");
+
             _syncContext.Send(_ => {
                 if (_singleBanner == null) {
                     _singleBanner = new BannerForm();
                     _singleBanner.Disposed += (s, e) => { Application.Exit(); };// _singleBanner = null; };
                 }
 
-                _singleBanner.SetData(data);
+                _singleBanner?.SetData(data);
             }, null);
         }
 
         private void MultipleBannerShow(BannerData data) {
+            if (_syncContext == null)
+                throw new InvalidOperationException("BannerManager.Setup() must be called before MultipleBannerShow.");
             // Execute the banner in the context of the UI thread
             _syncContext.Send(_ => {
                 var banner = new BannerForm();

@@ -1,4 +1,5 @@
-﻿/********************************************************************
+﻿#pragma warning disable CA1416 // Windows-only API
+/********************************************************************
  * Copyright (C) 2015-2017 Antoine Aflalo
  *
  * This program is free software; you can redistribute it and/or
@@ -26,9 +27,9 @@ namespace SoundSwitch.Framework.Banner {
     /// This class implements the UI form used to show a Banner notification.
     /// </summary>
     public partial class BannerForm : Form {
-        private Timer _timerHide;
+        private Timer? _timerHide;
         private bool _hiding;
-        private BannerData _currentData;
+        private BannerData? _currentData;
         private CancellationTokenSource _cancellationTokenSource = new();
         private int _currentOffset;
         private int _hide = 100;
@@ -110,13 +111,13 @@ namespace SoundSwitch.Framework.Banner {
 
             _hiding = false;
             Opacity = .9;
-            lblTop.Text = data.Title;
-            lblTitle.Text = data.Text;
+            lblTop.Text = data.Title ?? string.Empty;
+            lblTitle.Text = data.Text ?? string.Empty;
             Region = Region.FromHrgn(UI.Menu.Util.RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
             var screen = GetScreen();
-
-            Location = data.Position.GetScreenPosition(screen, Height, Width, _currentOffset);
+            if (data.Position != null)
+                Location = data.Position.GetScreenPosition(screen, Height, Width, _currentOffset);
 
             _timerHide.Enabled = true;
 
@@ -132,7 +133,8 @@ namespace SoundSwitch.Framework.Banner {
         public void UpdateLocationOpacity(int positionChange, double opacityChange, int hideChange) {
             var screen = GetScreen();
             _currentOffset += positionChange;
-            Location = _currentData.Position.GetScreenPosition(screen, Height, Width, _currentOffset);
+            if (_currentData != null && _currentData.Position != null)
+                Location = _currentData.Position.GetScreenPosition(screen, Height, Width, _currentOffset);
             Opacity -= opacityChange;
             _hide -= hideChange;
             if (Opacity <= 0.0 || _hide <= 0) {
@@ -188,7 +190,8 @@ namespace SoundSwitch.Framework.Banner {
             if (_hiding) return;
 
             _hiding = true;
-            _timerHide.Enabled = false;
+            if (_timerHide != null)
+                _timerHide.Enabled = false;
             DestroySound();
             FadeOut();
         }

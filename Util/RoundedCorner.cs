@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace SoundSwitch.UI.Menu.Util;
 
+#pragma warning disable CA1416 // Windows-only API
 public static class RoundedCorner
 {
     private const int OS_WINDOWS_11 = 22000;

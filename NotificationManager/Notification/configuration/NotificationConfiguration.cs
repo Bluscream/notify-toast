@@ -1,4 +1,5 @@
-﻿/********************************************************************
+﻿#pragma warning disable CA1416 // Windows-only API
+/********************************************************************
  * Copyright (C) 2015-2017 Antoine Aflalo
  *
  * This program is free software; you can redistribute it and/or
@@ -19,6 +20,10 @@ using SoundSwitch.Framework.Banner;
 
 namespace SoundSwitch.Framework.NotificationManager.Notification.Configuration {
     public class NotificationConfiguration : INotificationConfiguration {
+        public NotificationConfiguration() {
+            Icon = new NotifyIcon();
+            DefaultSound = Stream.Null;
+        }
         public NotifyIcon Icon { get; set; }
         public Stream DefaultSound { get; set; }
         public BannerPositionEnum BannerPosition { get; set; }

@@ -26,17 +26,17 @@ namespace SoundSwitch.Framework.Banner {
         /// <summary>
         /// Gets/sets the title of the banner
         /// </summary>
-        public string Title { get; internal set; }
+        public string? Title { get; internal set; }
 
         /// <summary>
         /// Gets/sets the text of the banner
         /// </summary>
-        public string Text { get; internal set; }
+        public string? Text { get; internal set; }
 
         /// <summary>
         /// Gets/sets the path for an image, this is optional.
         /// </summary>
-        public Image Image { get; internal set; }
+        public Image? Image { get; internal set; }
 
         /// <summary>
         /// Gets/sets the path for a wav sound to be playedc during the notification, this is optional.
@@ -48,12 +48,12 @@ namespace SoundSwitch.Framework.Banner {
         /// On what device to play the <see cref="CachedSound"/>
         /// </summary>
         [AllowNull]
-        public string CurrentDeviceId { get; internal set; }
+        public string? CurrentDeviceId { get; internal set; }
 
         /// <summary>
         /// Position of the banner
         /// </summary>
-        public IPosition Position { get; internal set; }
+        public IPosition? Position { get; internal set; }
 
         /// <summary>
         /// Set the priority of the notification

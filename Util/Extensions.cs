@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable CA1416 // Windows-only API
 namespace notify_toast.Util {
     internal static class Extensions {
         private const string Base64Prefix = "data:image/";
@@ -14,13 +15,13 @@ namespace notify_toast.Util {
             var converted = Convert.FromBase64String(base64String);
             using (MemoryStream ms = new MemoryStream(converted)) return Image.FromStream(ms);
         }
-        internal static async Task<Image> GetImageAsync(this Uri uri) {
+        internal static Task<Image> GetImageAsync(this Uri uri) {
             using (var httpClient = new HttpClient()) {
                 var byteArray = httpClient.GetByteArrayAsync(uri).Result;
-                return Image.FromStream(new MemoryStream(byteArray));
+                return Task.FromResult(Image.FromStream(new MemoryStream(byteArray)));
             }
         }
-        internal static Image ParseImage(this string input) {
+        internal static Image? ParseImage(this string input) {
             try { if (Uri.TryCreate(input, UriKind.Absolute, out var uri)) return GetImageAsync(uri).Result; } catch (Exception ex) { Console.WriteLine(ex.Message); }
             // if (input.StartsWith(Base64Prefix))
             try { return ImageFromBase64(input); } catch (Exception ex) { Console.WriteLine(ex.Message); }

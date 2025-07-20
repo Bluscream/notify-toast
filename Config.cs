@@ -1,18 +1,19 @@
-﻿using notify_toast.Properties;
+﻿#pragma warning disable CS8600 // Possible null value conversion
+using notify_toast.Properties;
 using System.ComponentModel;
 using System.Configuration;
 using System.Reflection;
 
 namespace notify_toast {
     internal static class Config {
-        internal static string Time => ConfigurationManager.AppSettings["BannerOnScreenTime"];
-        internal static string MaxNumberNotification => ConfigurationManager.AppSettings["MaxNumberNotification"];
-        internal static string NotifyUsingPrimaryScreen => ConfigurationManager.AppSettings["NotifyUsingPrimaryScreen"];
-        internal static ushort MaxImageSize => ushort.Parse(_MaxImageSize);
-        internal static string _MaxImageSize => ConfigurationManager.AppSettings["MaxImageSize"];
+        internal static string Time => ConfigurationManager.AppSettings["BannerOnScreenTime"]!;
+        internal static string MaxNumberNotification => ConfigurationManager.AppSettings["MaxNumberNotification"]!;
+        internal static string NotifyUsingPrimaryScreen => ConfigurationManager.AppSettings["NotifyUsingPrimaryScreen"]!;
+        internal static ushort MaxImageSize => ushort.Parse(_MaxImageSize!);
+        internal static string _MaxImageSize => ConfigurationManager.AppSettings["MaxImageSize"]!;
 
-        internal static string Image => ConfigurationManager.AppSettings["Image"];
-        internal static string Position => ConfigurationManager.AppSettings["Position"];
+        internal static string Image => ConfigurationManager.AppSettings["Image"]!;
+        internal static string Position => ConfigurationManager.AppSettings["Position"]!;
 
 
         internal static void Setup() {
@@ -253,10 +254,10 @@ namespace notify_toast {
                 throw new ArgumentException($"Property '{propertyName}' not found.", nameof(propertyName));
             }
             DefaultValueAttribute defaultValueAttr = propertyInfo.GetCustomAttribute<DefaultValueAttribute>();
-            if (defaultValueAttr == null) {
-                throw new InvalidOperationException($"No DefaultValueAttribute found for property '{propertyName}'.");
+            if (defaultValueAttr == null || defaultValueAttr.Value is null) {
+                throw new InvalidOperationException($"No DefaultValueAttribute found for property '{propertyName}' or value is null.");
             }
-            return (string)defaultValueAttr.Value;
+            return (string)defaultValueAttr.Value!;
         }
     }
 

@@ -1,4 +1,6 @@
-﻿/********************************************************************
+﻿#pragma warning disable CS8600 // Possible null value conversion
+#pragma warning disable CA1416 // Windows-only API
+/********************************************************************
 * Copyright (C) 2015-2017 Antoine Aflalo
 *
 * This program is free software; you can redistribute it and/or
@@ -47,7 +49,7 @@ namespace SoundSwitch.Framework.Factory
             {
                 throw new InvalidEnumArgumentException();
             }
-            return value;
+            return value!;
         }
 
         protected virtual IReadOnlyDictionary<TEnum, TImplementation> DataSource()
