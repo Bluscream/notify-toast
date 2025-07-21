@@ -19,6 +19,7 @@ for /f "tokens=1-4 delims=." %%a in ("!version!") do (
 REM Update the csproj file
 powershell -Command "(Get-Content %csproj%) -replace '<Version>.*</Version>', '<Version>!newversion!</Version>' | Set-Content %csproj%"
 
+taskkill /f /im banner.exe
 dotnet clean
 
 dotnet publish -c Release -r win-x86 --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true

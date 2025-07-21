@@ -4,10 +4,15 @@ using NotificationBanner.Model;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.Threading;
+using System.IO.Pipes;
 
 namespace NotificationBanner {
     internal static class Program {
         private static WindowsFormsSynchronizationContext? _synchronizationContext;
+        private static Mutex? _singleInstanceMutex;
+        private const string MutexName = "notify-toast-single-instance";
+        private const string PipeName = "notify-toast-pipe";
         [DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
 
@@ -26,13 +31,25 @@ namespace NotificationBanner {
             _synchronizationContext = new WindowsFormsSynchronizationContext();
             SynchronizationContext.SetSynchronizationContext(_synchronizationContext);
 
+            bool isFirstInstance;
+            _singleInstanceMutex = new Mutex(true, MutexName, out isFirstInstance);
             var config = Config.Load(args);
+            if (!isFirstInstance)
+            {
+                NotificationPipeServer.SendNotification(config);
+                return 0;
+            }
+            var notificationQueue = new NotificationQueue();
+            NotificationPipeServer pipeServer = new NotificationPipeServer();
+            pipeServer.StartServer(notificationQueue.Enqueue);
+
             if (string.IsNullOrWhiteSpace(config.Message))
             {
                 Console.Error.WriteLine("--message is required. Use --message, -message, or /message, or set it in a config file.");
                 return 1;
             }
-            Application.Run(new MyApplicationContext(config));
+            notificationQueue.Enqueue(config);
+            Application.Run(new MyApplicationContext(notificationQueue));
             return 0;
         }
     }

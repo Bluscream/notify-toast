@@ -6,12 +6,37 @@ using NotificationBanner;
 namespace NotificationBanner.Model {
     internal class MyApplicationContext : System.Windows.Forms.ApplicationContext {
         private readonly static Size MaxImageSize = new Size() { Width = 40, Height = 40 };
+        private readonly NotificationQueue _notificationQueue;
         private readonly BannerManager _bannerManager = new();
         private readonly BannerPositionFactory _bannerPositionFactory = new();
-        internal MyApplicationContext(Config config) {
-            // No more Config.Setup();
+        private BannerForm? _currentBanner;
+        private System.Windows.Forms.Timer? _queueTimer;
+        internal MyApplicationContext(NotificationQueue notificationQueue) {
+            _notificationQueue = notificationQueue;
             BannerManager.Setup();
+            StartQueueProcessing();
+        }
 
+        private void StartQueueProcessing() {
+            _queueTimer = new System.Windows.Forms.Timer();
+            _queueTimer.Interval = 500; // Check every 0.5s
+            _queueTimer.Tick += (s, e) => ProcessQueue();
+            _queueTimer.Start();
+            ProcessQueue();
+        }
+
+        private void ProcessQueue() {
+            if (_currentBanner != null && !_currentBanner.IsDisposed) return;
+            if (_notificationQueue.TryDequeue(out var config) && config != null) {
+                var toastData = CreateBannerData(config);
+                _currentBanner = new BannerForm();
+                _currentBanner.Disposed += (s, e) => { _currentBanner = null; };
+                _currentBanner.SetData(toastData);
+                _currentBanner.Show();
+            }
+        }
+
+        private BannerData CreateBannerData(Config config) {
             var msgArg = string.IsNullOrWhiteSpace(config.Message) ? null : config.Message;
             var titleArg = string.IsNullOrWhiteSpace(config.Title) ? null : config.Title;
             var imageArg = string.IsNullOrWhiteSpace(config.Image) ? null : config.Image;
@@ -44,9 +69,7 @@ namespace NotificationBanner.Model {
             }
             if (timeArg != null && int.TryParse(timeArg, out int seconds)) toastData.Ttl = TimeSpan.FromSeconds(seconds);
             else toastData.Ttl = TimeSpan.FromSeconds(10);
-
-            // Remove OnAllScreens logic, revert to original single notification
-            _bannerManager.ShowNotification(toastData);
+            return toastData;
         }
     }
 }

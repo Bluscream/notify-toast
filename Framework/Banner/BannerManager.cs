@@ -31,7 +31,7 @@ namespace NotificationBanner.Banner {
             _syncContext.Send(_ => {
                 if (_singleBanner == null) {
                     _singleBanner = new BannerForm();
-                    _singleBanner.Disposed += (s, e) => { Application.Exit(); };// _singleBanner = null; };
+                    _singleBanner.Disposed += (s, e) => { _singleBanner = null; };
                 }
 
                 _singleBanner?.SetData(data);
