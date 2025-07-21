@@ -33,6 +33,7 @@ namespace ActionCenterListener
     public class ActionCenterPoller : IDisposable
     {
         public readonly string _dbPath;
+        private readonly string _dbConn;
         private readonly Timer _timer;
         private long _lastSeenId = 0;
         private bool _isPolling = false;
@@ -44,6 +45,7 @@ namespace ActionCenterListener
         public ActionCenterPoller(int pollIntervalMs = 2000)
         {
             _dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows", "Notifications", "wpndatabase.db");
+            _dbConn = $"Data Source={_dbPath};Mode=ReadOnly;Cache=Shared";
             _timer = new Timer(Poll, null, pollIntervalMs, pollIntervalMs);
         }
 
@@ -52,7 +54,7 @@ namespace ActionCenterListener
             if (!File.Exists(_dbPath)) return new List<ActionCenterNotification>();
             try
             {
-                using var conn = new SqliteConnection($"Data Source={_dbPath}");
+                using var conn = new SqliteConnection(_dbConn);
                 conn.Open();
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = NotificationSelectSql + " ORDER BY Id ASC";
@@ -73,7 +75,7 @@ namespace ActionCenterListener
                 // On first poll, set _lastSeenId to the latest notification in the DB to avoid polling past notifications
                 if (_lastSeenId == 0)
                 {
-                    using (var conn = new SqliteConnection($"Data Source={_dbPath}"))
+                    using (var conn = new SqliteConnection(_dbConn))
                     {
                         conn.Open();
                         using var cmd = conn.CreateCommand();
@@ -87,7 +89,7 @@ namespace ActionCenterListener
                     return; // Do not process any notifications on the first poll
                 }
 
-                using (var conn = new SqliteConnection($"Data Source={_dbPath}"))
+                using (var conn = new SqliteConnection(_dbConn))
                 {
                     conn.Open();
                     var cmd = conn.CreateCommand();
