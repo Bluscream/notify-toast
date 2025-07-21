@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 REM Bump version in notification-banner.csproj
-set "csproj=..\notification-banner.csproj"
+set "csproj=notification-banner.csproj"
 for /f "tokens=2 delims=> <" %%A in ('findstr /i "<Version>" %csproj%') do set version=%%A
 for /f "tokens=1-4 delims=." %%a in ("!version!") do (
     set /a build=%%d+1
@@ -26,5 +26,5 @@ dotnet publish -c Release -r win-x86 --self-contained true /p:PublishSingleFile=
 @REM /p:PublishTrimmed=true
 
 set params=--message "Custom message" --title "Custom title" --time 5 --position center --image "https://github.com/kukuxx/HA-NotifyHelper/blob/master/doc/icon.png?raw=true"
-bin\Release\net8.0-windows\win-x86\publish\banner.exe %params% 
+start "" "bin\Release\net8.0-windows\win-x86\publish\banner.exe" %params% 
 @REM dotnet run -- %params% 
