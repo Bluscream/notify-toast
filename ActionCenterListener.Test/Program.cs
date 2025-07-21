@@ -1,6 +1,7 @@
 ﻿using System;
 using ActionCenterListener;
 using System.Threading;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 class Program
 {
@@ -13,7 +14,7 @@ class Program
             Console.WriteLine($"[{notif.Timestamp}] {notif.AppId}: {notif.Title} - {notif.Body}");
         };
 
-        // Try to create a test notification (if Microsoft.Toolkit.Uwp.Notifications is available)
+        // Try to create a test notification
         try
         {
             CreateTestNotification();
@@ -30,9 +31,7 @@ class Program
 
     static void CreateTestNotification()
     {
-        // This requires Microsoft.Toolkit.Uwp.Notifications NuGet package
-        // and Windows 10+.
-        var toastContent = new Microsoft.Toolkit.Uwp.Notifications.ToastContentBuilder()
+        new ToastContentBuilder()
             .AddText("Test Notification")
             .AddText("This is a test notification from ActionCenterListener.Test!")
             .Show();

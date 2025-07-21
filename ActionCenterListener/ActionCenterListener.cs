@@ -9,9 +9,9 @@ namespace ActionCenterListener
 {
     public class ActionCenterNotification
     {
-        public string AppId { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
+        public string? AppId { get; set; }
+        public string? Title { get; set; }
+        public string? Body { get; set; }
         public DateTime Timestamp { get; set; }
         public long NotificationId { get; set; }
     }
@@ -22,7 +22,7 @@ namespace ActionCenterListener
         private readonly Timer _timer;
         private long _lastSeenId = 0;
         private bool _isPolling = false;
-        public event Action<ActionCenterNotification> OnNotification;
+        public event Action<ActionCenterNotification>? OnNotification;
 
         public ActionCenterPoller(int pollIntervalMs = 2000)
         {
@@ -31,7 +31,7 @@ namespace ActionCenterListener
             _timer = new Timer(Poll, null, pollIntervalMs, pollIntervalMs);
         }
 
-        private void Poll(object state)
+        private void Poll(object? state)
         {
             if (_isPolling) return;
             _isPolling = true;
@@ -49,16 +49,16 @@ namespace ActionCenterListener
                     var notif = new ActionCenterNotification
                     {
                         NotificationId = reader.GetInt64(0),
-                        AppId = reader.GetString(1),
-                        Title = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                        Body = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                        AppId = reader.IsDBNull(1) ? null : reader.GetString(1),
+                        Title = reader.IsDBNull(2) ? null : reader.GetString(2),
+                        Body = reader.IsDBNull(3) ? null : reader.GetString(3),
                         Timestamp = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64(4)).DateTime
                     };
                     _lastSeenId = notif.NotificationId;
                     OnNotification?.Invoke(notif);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Optionally log or handle errors
             }
