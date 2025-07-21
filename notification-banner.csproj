@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <SelfContained>false</SelfContained>
-    <TargetType>exe</TargetType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>notification_banner</RootNamespace>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <AssemblyName>notification-banner</AssemblyName>
+    <AssemblyName>banner</AssemblyName>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
   </PropertyGroup>
 

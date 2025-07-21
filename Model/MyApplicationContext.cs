@@ -17,7 +17,7 @@ namespace NotificationBanner.Model {
             var imageArg = string.IsNullOrWhiteSpace(config.Image) ? null : config.Image;
             var posArg = string.IsNullOrWhiteSpace(config.Position) ? "0" : config.Position;
             var timeArg = string.IsNullOrWhiteSpace(config.Time) ? "10" : config.Time;
-            var maxImageSize = config.MaxImageSize ?? 40;
+            var maxImageSize = 40;
 
             var toastData = new BannerData();
             var parsedImage = imageArg?.ParseImage();

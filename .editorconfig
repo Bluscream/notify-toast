@@ -13,11 +13,11 @@ dotnet_separate_import_directive_groups = false
 # end_of_line = lf - there is no 'auto' with an .editorconfig
 indent_style = space
 indent_size = 4
-max_line_length = 100
+max_line_length = -1
 csharp_new_line_before_open_brace = none:suggestion 
 
 [*.{csproj,props,targets,xml,config}]
 # Configurable behaviors
 indent_style = space
 indent_size = 2
-max_line_length = 100
+max_line_length = -1
