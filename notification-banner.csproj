@@ -11,6 +11,8 @@
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <AssemblyName>banner</AssemblyName>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <Version>2.0.0.0</Version>
+    <Authors>Bluscream, Belphemur, Cursor AI</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,16 +28,6 @@
 
   <ItemGroup>
     <!-- Removed: NotificationManager/INotification.cs, NotificationManager/NotificationFactory.cs -->
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="App.config" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="App.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>

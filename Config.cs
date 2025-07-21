@@ -12,7 +12,6 @@ namespace NotificationBanner {
         public string? Time { get; set; } = "10";
         // public string? Image { get; set; } // In DefaultIcon.cs
         public string? Position { get; set; } = "topleft";
-        public bool OnAllScreens { get; set; } = false;
 
         public static Config Load(string[] args) {
             var exePath = Assembly.GetEntryAssembly()?.Location ?? System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? AppContext.BaseDirectory ?? Environment.GetCommandLineArgs().FirstOrDefault() ?? ".";
@@ -82,12 +81,6 @@ namespace NotificationBanner {
                         case "time": Time = value; break;
                         case "image": Image = value; break;
                         case "position": Position = value?.ToLowerInvariant(); break;
-                        case "onallscreens":
-                            if (value != null)
-                                OnAllScreens = value.Equals("true", StringComparison.OrdinalIgnoreCase) || value == "1";
-                            else
-                                OnAllScreens = true;
-                            break;
                     }
                 }
             }

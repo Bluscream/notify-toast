@@ -44,6 +44,8 @@ namespace NotificationBanner.Model {
             }
             if (timeArg != null && int.TryParse(timeArg, out int seconds)) toastData.Ttl = TimeSpan.FromSeconds(seconds);
             else toastData.Ttl = TimeSpan.FromSeconds(10);
+
+            // Remove OnAllScreens logic, revert to original single notification
             _bannerManager.ShowNotification(toastData);
         }
     }
