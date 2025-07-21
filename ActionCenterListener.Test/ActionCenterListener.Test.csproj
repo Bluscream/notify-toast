@@ -1,18 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\ActionCenterListener\ActionCenterListener.csproj" />
+    <PackageReference Include="ActionCenterListener" Version="1.0.2" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
   </ItemGroup>
-
   <PropertyGroup>
     <OutputType>exe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.1</Version>
+    <RepositoryUrl>https://github.com/Bluscream/ActionCenterListener-Test</RepositoryUrl>
   </PropertyGroup>
-
 </Project>
