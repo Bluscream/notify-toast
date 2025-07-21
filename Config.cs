@@ -31,7 +31,15 @@ namespace NotificationBanner {
                 config.SaveToFile(userConfigPath);
             else
                 config.LoadFromFile(userConfigPath);
-            config.ParseCommandLine(args);
+
+            if (args.Length == 1 && !(args[0].StartsWith("-") || args[0].StartsWith("/"))) {
+                config.Message = args[0];
+            } else if (args.Length == 2 && !(args[0].StartsWith("-") || args[0].StartsWith("/") || args[1].StartsWith("-") || args[1].StartsWith("/"))) {
+                config.Message = args[0];
+                config.Title = args[1];
+            } else {
+                config.ParseCommandLine(args);
+            }
             return config;
         }
 
