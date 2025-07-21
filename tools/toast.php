@@ -55,6 +55,6 @@ $image = get("image");
 $args = [$message,$title];
 if (!empty($image)) $args[] = $image;
 
-$result = exec2("C:\\Scripts\\toast.exe",$args);
+$result = exec2("banner",$args);
 
 var_dump($result);
