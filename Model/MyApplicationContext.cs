@@ -30,7 +30,10 @@ namespace NotificationBanner.Model {
             if (_notificationQueue.TryDequeue(out var config) && config != null) {
                 var toastData = CreateBannerData(config);
                 _currentBanner = new BannerForm();
-                _currentBanner.Disposed += (s, e) => { _currentBanner = null; };
+                _currentBanner.Disposed += (s, e) => {
+                    _currentBanner = null;
+                    ProcessQueue(); // Immediately process the next notification
+                };
                 _currentBanner.SetData(toastData);
                 _currentBanner.Show();
             }
