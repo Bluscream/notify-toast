@@ -7,17 +7,27 @@ class Program
 {
     static void Main(string[] args)
     {
+        // Set a custom AppUserModelID for toast notifications
+        // ToastNotificationManagerCompat.SetAppId("ActionCenterListener.Test");
+
         Console.WriteLine("Starting ActionCenterListener test...");
         var poller = new ActionCenterPoller();
+        Console.WriteLine($"Database path: {poller._dbPath}");
+        var allNotifs = poller.GetAllNotifications();
+        Console.WriteLine($"Stored notifications in Action Center DB: {allNotifs.Count}");
         poller.OnNotification += notif =>
         {
-            Console.WriteLine($"[{notif.Timestamp}] {notif.AppId}: {notif.Title} - {notif.Body}");
+            if (notif.Payload != null)
+            {
+                Console.WriteLine($"[{notif.Timestamp}] {notif.AppId}: {notif.Payload.ToastTitle} - {notif.Payload.ToastBody}");
+            }
         };
 
         // Try to create a test notification
         try
         {
             CreateTestNotification();
+            Console.WriteLine("Test notification sent.");
         }
         catch (Exception ex)
         {
