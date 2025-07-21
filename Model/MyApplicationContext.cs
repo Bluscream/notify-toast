@@ -5,22 +5,23 @@ using NotificationBanner;
 
 namespace NotificationBanner.Model {
     internal class MyApplicationContext : System.Windows.Forms.ApplicationContext {
-        private readonly static Size MaxImageSize = new Size() { Width = Config.MaxImageSize, Height = Config.MaxImageSize };
+        private readonly static Size MaxImageSize = new Size() { Width = 40, Height = 40 };
         private readonly BannerManager _bannerManager = new();
         private readonly BannerPositionFactory _bannerPositionFactory = new();
-        internal MyApplicationContext(NotificationArgs args) {
-            Config.Setup();
+        internal MyApplicationContext(Config config) {
+            // No more Config.Setup();
             BannerManager.Setup();
 
-            var msgArg = string.IsNullOrWhiteSpace(args.Message) ? null : args.Message;
-            var titleArg = string.IsNullOrWhiteSpace(args.Title) ? null : args.Title;
-            var imageArg = string.IsNullOrWhiteSpace(args.Image) ? Config.Image : args.Image;
-            var posArg = string.IsNullOrWhiteSpace(args.Position) ? "0" : args.Position;
-            var timeArg = string.IsNullOrWhiteSpace(args.Time) ? "10" : args.Time;
+            var msgArg = string.IsNullOrWhiteSpace(config.Message) ? null : config.Message;
+            var titleArg = string.IsNullOrWhiteSpace(config.Title) ? null : config.Title;
+            var imageArg = string.IsNullOrWhiteSpace(config.Image) ? null : config.Image;
+            var posArg = string.IsNullOrWhiteSpace(config.Position) ? "0" : config.Position;
+            var timeArg = string.IsNullOrWhiteSpace(config.Time) ? "10" : config.Time;
+            var maxImageSize = config.MaxImageSize ?? 40;
 
             var toastData = new BannerData();
             var parsedImage = imageArg?.ParseImage();
-            if (parsedImage != null) toastData.Image = parsedImage.Resize(MaxImageSize);
+            if (parsedImage != null) toastData.Image = parsedImage.Resize(new Size() { Width = maxImageSize, Height = maxImageSize });
             if (msgArg != null) toastData.Text = msgArg;
             if (titleArg != null) toastData.Title = titleArg;
             if (posArg != null) {
