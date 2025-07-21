@@ -1,10 +1,14 @@
 # PowerShell script to bump version, publish, and run the app
 $csproj = "notification-banner.csproj"
 
-# Extract current version
+# Extract current version robustly
 [xml]$projXml = Get-Content $csproj
-$versionNode = $projXml.Project.PropertyGroup.Version
-$version = $versionNode.InnerText
+$versionNode = $projXml.Project.PropertyGroup | Where-Object { $_.Version } | Select-Object -First 1
+if (-not $versionNode) {
+    Write-Error "No <Version> property found in any <PropertyGroup> in $csproj"
+    exit 1
+}
+$version = $versionNode.Version
 
 # Parse version
 $parts = $version -split '\.'
@@ -22,7 +26,7 @@ if ($build -gt 9) {
 $newVersion = "$major.$minor.$patch.$build"
 
 # Update the csproj file
-$projXml.Project.PropertyGroup.Version = $newVersion
+$versionNode.Version = $newVersion
 $projXml.Save($csproj)
 Write-Host "Updated version to $newVersion"
 
@@ -30,8 +34,8 @@ Write-Host "Updated version to $newVersion"
 Get-Process banner -ErrorAction SilentlyContinue | Stop-Process -Force
 
 # Clean and publish
-& dotnet clean
-& dotnet publish -c Release -r win-x86 --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true
+dotnet clean
+dotnet publish -c Release -r win-x86 --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true
 
 # Run the published app with test params
 $params = @('--message', 'Custom message', '--title', 'Custom title', '--time', '5', '--position', 'center', '--image', 'https://github.com/kukuxx/HA-NotifyHelper/blob/master/doc/icon.png?raw=true')

@@ -29,6 +29,7 @@ namespace NotificationBanner.Model {
             if (_currentBanner != null && !_currentBanner.IsDisposed) return;
             if (_notificationQueue.TryDequeue(out var config) && config != null) {
                 var toastData = CreateBannerData(config);
+                Console.WriteLine($"[AppContext] Showing notification: {toastData?.Title} - {toastData?.Text}");
                 _currentBanner = new BannerForm();
                 _currentBanner.Disposed += (s, e) => {
                     _currentBanner = null;
@@ -36,6 +37,8 @@ namespace NotificationBanner.Model {
                 };
                 _currentBanner.SetData(toastData);
                 _currentBanner.Show();
+            } else {
+                Console.WriteLine("[AppContext] Queue is empty or no notification to show.");
             }
         }
 
