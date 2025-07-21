@@ -40,8 +40,6 @@ namespace NotificationBanner {
                 return 0;
             }
             var notificationQueue = new NotificationQueue();
-            NotificationPipeServer pipeServer = new NotificationPipeServer();
-            pipeServer.StartServer(notificationQueue.Enqueue);
 
             if (string.IsNullOrWhiteSpace(config.Message))
             {
@@ -49,6 +47,10 @@ namespace NotificationBanner {
                 return 1;
             }
             notificationQueue.Enqueue(config);
+
+            NotificationPipeServer pipeServer = new NotificationPipeServer();
+            pipeServer.StartServer(notificationQueue.Enqueue);
+
             Application.Run(new MyApplicationContext(notificationQueue));
             return 0;
         }

@@ -21,8 +21,8 @@ namespace NotificationBanner.Model {
             _queueTimer = new System.Windows.Forms.Timer();
             _queueTimer.Interval = 500; // Check every 0.5s
             _queueTimer.Tick += (s, e) => ProcessQueue();
+            ProcessQueue(); // Call before starting the timer
             _queueTimer.Start();
-            ProcessQueue();
         }
 
         private void ProcessQueue() {
