@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using System.Threading;
 using System.IO.Pipes;
+using NotificationBanner.Util;
 
 namespace NotificationBanner {
     internal static class Program {
@@ -39,6 +40,9 @@ namespace NotificationBanner {
                 NotificationPipeServer.SendNotification(config);
                 return 0;
             }
+#if !DEBUG
+            Utils.HideConsoleWindow();
+#endif
             var notificationQueue = new NotificationQueue();
 
             if (string.IsNullOrWhiteSpace(config.Message))

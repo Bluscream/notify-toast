@@ -35,10 +35,10 @@ namespace NotificationBanner.Model {
                     _currentBanner = null;
                     ProcessQueue(); // Immediately process the next notification
                 };
-                _currentBanner.SetData(toastData);
+                _currentBanner.SetData(toastData!);
                 _currentBanner.Show();
             } else {
-                Console.WriteLine("[AppContext] Queue is empty or no notification to show.");
+                // Console.WriteLine("[AppContext] Queue is empty or no notification to show.");
             }
         }
 
