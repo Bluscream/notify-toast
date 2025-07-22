@@ -78,12 +78,12 @@ namespace NotificationBanner.Banner {
             Controls.Add(lblTop);
             Controls.Add(lblTitle);
 
-            // Ensure always on top when shown
-            this.Shown += (s, e) => {
-                this.TopMost = true;
-                this.BringToFront();
-                this.Activate();
-            };
+            // Remove focus/activation logic
+            // this.Shown += (s, e) => {
+            //     this.TopMost = true;
+            //     this.BringToFront();
+            //     this.Activate();
+            // };
         }
 
         protected override bool ShowWithoutActivation => true;
@@ -93,8 +93,10 @@ namespace NotificationBanner.Banner {
                 var cp = base.CreateParams;
                 // turn on WS_EX_TOOLWINDOW style bit
                 // Used to hide the banner from alt+tab
-                // source: https://www.csharp411.com/hide-form-from-alttab/
                 cp.ExStyle |= 0x80;
+                // Add WS_EX_TRANSPARENT (0x20) and WS_EX_NOACTIVATE (0x8000000)
+                cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
+                cp.ExStyle |= 0x8000000; // WS_EX_NOACTIVATE
                 return cp;
             }
         }
@@ -169,8 +171,8 @@ namespace NotificationBanner.Banner {
             _timerHide.Enabled = true;
 
             Show();
-            BringToFront();
-            Activate();
+            TopMost = true; // Ensure always on top while visible
+            // Do not call BringToFront or Activate
         }
 
         /// <summary>
