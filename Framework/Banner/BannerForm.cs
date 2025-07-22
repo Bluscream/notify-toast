@@ -22,6 +22,9 @@ namespace NotificationBanner.Banner {
         private int _currentOffset;
         private int _hide = 100;
         public Guid Id { get; } = Guid.NewGuid();
+        private Label lblTop;
+        private Label lblTitle;
+        private PictureBox pbxLogo;
 
         /// <summary>
         /// Get the Screen object
@@ -35,13 +38,45 @@ namespace NotificationBanner.Banner {
         /// </summary>
         public BannerForm() {
             StartPosition = FormStartPosition.Manual;
-            Size = new System.Drawing.Size(428, 215);
+            Size = new System.Drawing.Size(350, 80);
             TopMost = true;
             FormBorderStyle = FormBorderStyle.None;
             ShowInTaskbar = false;
-            BackColor = System.Drawing.Color.Black;
+            BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
             ForeColor = System.Drawing.Color.White;
-            Padding = new System.Windows.Forms.Padding(10);
+            Padding = new System.Windows.Forms.Padding(0);
+
+            // Create UI controls
+            pbxLogo = new PictureBox {
+                Size = new Size(32, 32),
+                Location = new Point(12, 12),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                BackColor = Color.Transparent
+            };
+
+            lblTop = new Label {
+                AutoSize = false,
+                Size = new Size(280, 20),
+                Location = new Point(56, 12),
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = Color.White,
+                BackColor = Color.Transparent,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            lblTitle = new Label {
+                AutoSize = false,
+                Size = new Size(280, 40),
+                Location = new Point(56, 32),
+                Font = new Font("Segoe UI", 9),
+                ForeColor = Color.LightGray,
+                BackColor = Color.Transparent,
+                TextAlign = ContentAlignment.TopLeft
+            };
+
+            Controls.Add(pbxLogo);
+            Controls.Add(lblTop);
+            Controls.Add(lblTitle);
         }
 
         protected override bool ShowWithoutActivation => true;
@@ -74,14 +109,18 @@ namespace NotificationBanner.Banner {
                 _timerHide.Enabled = false;
             }
 
-            if (data.Image != null)
-                // pbxLogo.Image = data.Image; // Remove or replace as needed
+            if (data.Image != null) {
+                pbxLogo.Image = data.Image;
+            } else {
+                // Set default icon (orange > symbol in dark square)
+                pbxLogo.Image = CreateDefaultIcon();
+            }
 
             _hiding = false;
             Opacity = .9;
-            // lblTop.Text = data.Title ?? string.Empty; // Remove or replace as needed
-            // lblTitle.Text = data.Text ?? string.Empty; // Remove or replace as needed
-            // Region = Region.FromHrgn(RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20)); // Remove or replace as needed
+            lblTop.Text = data.Title ?? string.Empty;
+            lblTitle.Text = data.Text ?? string.Empty;
+            Region = Region.FromHrgn(RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
             if (data.Position != null) {
                 var (x, y) = data.Position(Width, Height, _currentOffset);
@@ -183,6 +222,24 @@ namespace NotificationBanner.Banner {
                     //Ignored
                 }
             }
+        }
+
+        private Bitmap CreateDefaultIcon() {
+            var bitmap = new Bitmap(32, 32);
+            using (var g = Graphics.FromImage(bitmap)) {
+                // Dark background
+                g.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), 0, 0, 32, 32);
+                // Orange > symbol
+                using (var pen = new Pen(Color.Orange, 2)) {
+                    var points = new Point[] {
+                        new Point(10, 8),
+                        new Point(22, 16),
+                        new Point(10, 24)
+                    };
+                    g.DrawLines(pen, points);
+                }
+            }
+            return bitmap;
         }
     }
 }

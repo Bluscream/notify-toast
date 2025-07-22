@@ -9,6 +9,7 @@ namespace NotificationBanner.Model {
         private readonly NotificationQueue _notificationQueue;
         private BannerForm? _bannerForm;
         private System.Windows.Forms.Timer? _queueTimer;
+        private Config? _currentConfig;
         internal MyApplicationContext(NotificationQueue notificationQueue) {
             _notificationQueue = notificationQueue;
             StartQueueProcessing();
@@ -25,13 +26,18 @@ namespace NotificationBanner.Model {
         private void ProcessQueue() {
             if (_bannerForm != null && _bannerForm.Visible) return;
             if (_notificationQueue.TryDequeue(out var config) && config != null) {
+                _currentConfig = config;
                 var toastData = CreateBannerData(config);
                 Console.WriteLine($"[AppContext] Showing notification: {toastData?.Title} - {toastData?.Text}");
                 if (_bannerForm == null || _bannerForm.IsDisposed) {
                     _bannerForm = new BannerForm();
                     _bannerForm.Disposed += (s, e) => {
                         _bannerForm = null;
-                        ProcessQueue(); // Immediately process the next notification
+                        if (_currentConfig != null && _currentConfig.Exit) {
+                            NotificationBanner.Util.Utils.TryExitApplication();
+                        } else {
+                            ProcessQueue(); // Immediately process the next notification
+                        }
                     };
                 }
                 _bannerForm.SetData(toastData!);
