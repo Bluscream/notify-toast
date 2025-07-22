@@ -1,5 +1,8 @@
 # notification-banner
 
+> [!TIP]
+> This project has been superseded by https://github.com/Bluscream/notification-banner
+
 **Version:** 2.0.0.0  
 **Authors:** Bluscream, Belphemur, Cursor AI
 
