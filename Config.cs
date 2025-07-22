@@ -6,13 +6,14 @@ using System.Text.Json.Serialization;
 using System.Text.Encodings.Web;
 
 namespace NotificationBanner {
-    internal partial class Config {
+    public partial class Config {
         public string? Message { get; set; } = "";
         public string? Title { get; set; } = "Notification";
         public string? Time { get; set; } = "10";
         // public string? Image { get; set; } // In DefaultIcon.cs
         public string? Position { get; set; } = "topleft";
         public bool Exit { get; set; } = false;
+        public string? Color { get; set; } = null;
 
         public static Config Load(string[] args) {
             var exePath = Assembly.GetEntryAssembly()?.Location ?? System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? AppContext.BaseDirectory ?? Environment.GetCommandLineArgs().FirstOrDefault() ?? ".";
@@ -83,6 +84,7 @@ namespace NotificationBanner {
                         case "image": Image = value; break;
                         case "position": Position = value?.ToLowerInvariant(); break;
                         case "exit": Exit = true; break;
+                        case "color": Color = value; break;
                     }
                 }
             }

@@ -54,6 +54,7 @@ namespace NotificationBanner.Model {
             var maxImageSize = 40;
 
             var toastData = new BannerData();
+            toastData.Config = config;
             var parsedImage = imageArg?.ParseImage();
             if (parsedImage != null) toastData.Image = parsedImage.Resize(new Size() { Width = maxImageSize, Height = maxImageSize });
             if (msgArg != null) toastData.Text = msgArg;

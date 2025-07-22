@@ -77,6 +77,13 @@ namespace NotificationBanner.Banner {
             Controls.Add(pbxLogo);
             Controls.Add(lblTop);
             Controls.Add(lblTitle);
+
+            // Ensure always on top when shown
+            this.Shown += (s, e) => {
+                this.TopMost = true;
+                this.BringToFront();
+                this.Activate();
+            };
         }
 
         protected override bool ShowWithoutActivation => true;
@@ -112,12 +119,44 @@ namespace NotificationBanner.Banner {
             if (data.Image != null) {
                 pbxLogo.Image = data.Image;
             } else {
-                // Set default icon (orange > symbol in dark square)
                 pbxLogo.Image = CreateDefaultIcon();
             }
 
+            // Handle background color and opacity from config
+            var config = data.Config as NotificationBanner.Config;
+            if (config != null && !string.IsNullOrWhiteSpace(config.Color)) {
+                try {
+                    var colorStr = config.Color.TrimStart('#');
+                    Color color;
+                    double opacity = 0.9;
+                    if (colorStr.Length == 8) { // AARRGGBB
+                        byte a = Convert.ToByte(colorStr.Substring(0, 2), 16);
+                        byte r = Convert.ToByte(colorStr.Substring(2, 2), 16);
+                        byte g = Convert.ToByte(colorStr.Substring(4, 2), 16);
+                        byte b = Convert.ToByte(colorStr.Substring(6, 2), 16);
+                        color = Color.FromArgb(a, r, g, b);
+                        opacity = a / 255.0;
+                    } else if (colorStr.Length == 6) { // RRGGBB
+                        byte r = Convert.ToByte(colorStr.Substring(0, 2), 16);
+                        byte g = Convert.ToByte(colorStr.Substring(2, 2), 16);
+                        byte b = Convert.ToByte(colorStr.Substring(4, 2), 16);
+                        color = Color.FromArgb(r, g, b);
+                        opacity = 0.9;
+                    } else {
+                        color = BackColor;
+                    }
+                    BackColor = color;
+                    Opacity = opacity;
+                } catch {
+                    BackColor = Color.FromArgb(45, 45, 45);
+                    Opacity = 0.9;
+                }
+            } else {
+                BackColor = Color.FromArgb(45, 45, 45);
+                Opacity = 0.9;
+            }
+
             _hiding = false;
-            Opacity = .9;
             lblTop.Text = data.Title ?? string.Empty;
             lblTitle.Text = data.Text ?? string.Empty;
             Region = Region.FromHrgn(RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
@@ -130,6 +169,8 @@ namespace NotificationBanner.Banner {
             _timerHide.Enabled = true;
 
             Show();
+            BringToFront();
+            Activate();
         }
 
         /// <summary>
