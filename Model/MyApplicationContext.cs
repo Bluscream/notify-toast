@@ -1,19 +1,16 @@
 ﻿using NotificationBanner.Util;
 using NotificationBanner.Banner;
-using NotificationBanner.Banner.Position;
+using System.Drawing;
 using NotificationBanner;
 
 namespace NotificationBanner.Model {
     internal class MyApplicationContext : System.Windows.Forms.ApplicationContext {
         private readonly static Size MaxImageSize = new Size() { Width = 40, Height = 40 };
         private readonly NotificationQueue _notificationQueue;
-        private readonly BannerManager _bannerManager = new();
-        private readonly BannerPositionFactory _bannerPositionFactory = new();
-        private BannerForm? _currentBanner;
+        private BannerForm? _bannerForm;
         private System.Windows.Forms.Timer? _queueTimer;
         internal MyApplicationContext(NotificationQueue notificationQueue) {
             _notificationQueue = notificationQueue;
-            BannerManager.Setup();
             StartQueueProcessing();
         }
 
@@ -26,19 +23,19 @@ namespace NotificationBanner.Model {
         }
 
         private void ProcessQueue() {
-            if (_currentBanner != null && !_currentBanner.IsDisposed) return;
+            if (_bannerForm != null && _bannerForm.Visible) return;
             if (_notificationQueue.TryDequeue(out var config) && config != null) {
                 var toastData = CreateBannerData(config);
                 Console.WriteLine($"[AppContext] Showing notification: {toastData?.Title} - {toastData?.Text}");
-                _currentBanner = new BannerForm();
-                _currentBanner.Disposed += (s, e) => {
-                    _currentBanner = null;
-                    ProcessQueue(); // Immediately process the next notification
-                };
-                _currentBanner.SetData(toastData!);
-                _currentBanner.Show();
-            } else {
-                // Console.WriteLine("[AppContext] Queue is empty or no notification to show.");
+                if (_bannerForm == null || _bannerForm.IsDisposed) {
+                    _bannerForm = new BannerForm();
+                    _bannerForm.Disposed += (s, e) => {
+                        _bannerForm = null;
+                        ProcessQueue(); // Immediately process the next notification
+                    };
+                }
+                _bannerForm.SetData(toastData!);
+                _bannerForm.Show();
             }
         }
 
@@ -55,27 +52,61 @@ namespace NotificationBanner.Model {
             if (parsedImage != null) toastData.Image = parsedImage.Resize(new Size() { Width = maxImageSize, Height = maxImageSize });
             if (msgArg != null) toastData.Text = msgArg;
             if (titleArg != null) toastData.Title = titleArg;
-            if (posArg != null) {
-                if (int.TryParse(posArg, out int posInt)) {
-                    switch ((BannerPositionEnum)posInt) {
-                        case BannerPositionEnum.TopCenter: toastData.Position = new BannerPosition(BannerPositionEnum.TopCenter); break;
-                        case BannerPositionEnum.TopRight: toastData.Position = new BannerPosition(BannerPositionEnum.TopRight); break;
-                        case BannerPositionEnum.BottomLeft: toastData.Position = new BannerPosition(BannerPositionEnum.BottomLeft); break;
-                        case BannerPositionEnum.BottomCenter: toastData.Position = new BannerPosition(BannerPositionEnum.BottomCenter); break;
-                        case BannerPositionEnum.BottomRight: toastData.Position = new BannerPosition(BannerPositionEnum.BottomRight); break;
-                        case BannerPositionEnum.Center: toastData.Position = new BannerPosition(BannerPositionEnum.Center); break;
-                        case BannerPositionEnum.TopLeft:
-                        default: toastData.Position = new BannerPosition(BannerPositionEnum.TopLeft); break;
-                    }
-                } else if (Enum.TryParse<BannerPositionEnum>(posArg, true, out var posEnum)) {
-                    toastData.Position = new BannerPosition(posEnum);
-                } else {
-                    toastData.Position = new BannerPosition(BannerPositionEnum.TopLeft);
-                }
-            }
+            toastData.Position = ParsePosition(posArg);
             if (timeArg != null && int.TryParse(timeArg, out int seconds)) toastData.Ttl = TimeSpan.FromSeconds(seconds);
             else toastData.Ttl = TimeSpan.FromSeconds(10);
             return toastData;
+        }
+
+        private static BannerPositionEnum ParsePositionEnum(string posArg) {
+            if (int.TryParse(posArg, out int posInt) && Enum.IsDefined(typeof(BannerPositionEnum), posInt)) {
+                return (BannerPositionEnum)posInt;
+            }
+            if (Enum.TryParse<BannerPositionEnum>(posArg, true, out var posEnum)) {
+                return posEnum;
+            }
+            return BannerPositionEnum.TopLeft;
+        }
+
+        private static (int x, int y) GetScreenPosition(BannerPositionEnum pos, int width, int height, int offset = 0) {
+            var screen = System.Windows.Forms.Screen.FromPoint(System.Windows.Forms.Cursor.Position);
+            int x = 0, y = 0;
+            switch (pos) {
+                case BannerPositionEnum.TopLeft:
+                    x = screen.Bounds.X + 50;
+                    y = screen.Bounds.Y + 60 + offset;
+                    break;
+                case BannerPositionEnum.TopCenter:
+                    x = screen.Bounds.X + (screen.Bounds.Width - width) / 2;
+                    y = screen.Bounds.Y + 60 + offset;
+                    break;
+                case BannerPositionEnum.TopRight:
+                    x = screen.Bounds.X + screen.Bounds.Width - width - 50;
+                    y = screen.Bounds.Y + 60 + offset;
+                    break;
+                case BannerPositionEnum.BottomLeft:
+                    x = screen.Bounds.X + 50;
+                    y = screen.Bounds.Y + screen.Bounds.Height - height - 60 - offset;
+                    break;
+                case BannerPositionEnum.BottomCenter:
+                    x = screen.Bounds.X + (screen.Bounds.Width - width) / 2;
+                    y = screen.Bounds.Y + screen.Bounds.Height - height - 60 - offset;
+                    break;
+                case BannerPositionEnum.BottomRight:
+                    x = screen.Bounds.X + screen.Bounds.Width - width - 50;
+                    y = screen.Bounds.Y + screen.Bounds.Height - height - 60 - offset;
+                    break;
+                case BannerPositionEnum.Center:
+                    x = screen.Bounds.X + (screen.Bounds.Width - width) / 2;
+                    y = screen.Bounds.Y + (screen.Bounds.Height - height) / 2;
+                    break;
+            }
+            return (x, y);
+        }
+
+        private BannerData.PositionDelegate ParsePosition(string posArg) {
+            var posEnum = ParsePositionEnum(posArg);
+            return (formWidth, formHeight, offset) => GetScreenPosition(posEnum, formWidth, formHeight, offset);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <SelfContained>false</SelfContained>
     <OutputType>WinExe</OutputType>
@@ -10,9 +10,14 @@
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <AssemblyName>banner</AssemblyName>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
-    <Version>3.0.0.1</Version>
+    <Version>3.0.0.2</Version>
     <Authors>Bluscream, Belphemur, Cursor AI</Authors>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="NotificationListener\**" />
+    <None Remove="NotificationListener\**" />
+    <Content Remove="NotificationListener\**" />
+  </ItemGroup>
 </Project>

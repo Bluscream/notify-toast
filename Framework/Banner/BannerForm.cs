@@ -34,13 +34,14 @@ namespace NotificationBanner.Banner {
         /// Constructor for the <see cref="BannerForm"/> class
         /// </summary>
         public BannerForm() {
-            InitializeComponent();
-            var screen = GetScreen();
             StartPosition = FormStartPosition.Manual;
-            Bounds = screen.Bounds;
+            Size = new System.Drawing.Size(428, 215);
             TopMost = true;
             FormBorderStyle = FormBorderStyle.None;
             ShowInTaskbar = false;
+            BackColor = System.Drawing.Color.Black;
+            ForeColor = System.Drawing.Color.White;
+            Padding = new System.Windows.Forms.Padding(10);
         }
 
         protected override bool ShowWithoutActivation => true;
@@ -74,18 +75,18 @@ namespace NotificationBanner.Banner {
             }
 
             if (data.Image != null)
-                pbxLogo.Image = data.Image;
-
+                ; // pbxLogo.Image = data.Image; // Remove or replace as needed
 
             _hiding = false;
             Opacity = .9;
-            lblTop.Text = data.Title ?? string.Empty;
-            lblTitle.Text = data.Text ?? string.Empty;
-            Region = Region.FromHrgn(RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+            // lblTop.Text = data.Title ?? string.Empty; // Remove or replace as needed
+            // lblTitle.Text = data.Text ?? string.Empty; // Remove or replace as needed
+            // Region = Region.FromHrgn(RoundedCorner.CreateRoundRectRgn(0, 0, Width, Height, 20, 20)); // Remove or replace as needed
 
-            var screen = GetScreen();
-            if (data.Position != null)
-                Location = data.Position.GetScreenPosition(screen, Height, Width, _currentOffset);
+            if (data.Position != null) {
+                var (x, y) = data.Position(Width, Height, _currentOffset);
+                Location = new System.Drawing.Point(x, y);
+            }
 
             _timerHide.Enabled = true;
 
@@ -99,10 +100,12 @@ namespace NotificationBanner.Banner {
         /// <param name="opacityChange"></param>
         /// <param name="hideChange"></param>
         public void UpdateLocationOpacity(int positionChange, double opacityChange, int hideChange) {
-            var screen = GetScreen();
             _currentOffset += positionChange;
             if (_currentData != null && _currentData.Position != null)
-                Location = _currentData.Position.GetScreenPosition(screen, Height, Width, _currentOffset);
+                {
+                    var (x, y) = _currentData.Position(Width, Height, _currentOffset);
+                    Location = new System.Drawing.Point(x, y);
+                }
             Opacity -= opacityChange;
             _hide -= hideChange;
             if (Opacity <= 0.0 || _hide <= 0) {
@@ -128,7 +131,6 @@ namespace NotificationBanner.Banner {
             if (disposing) {
                 _timerHide?.Dispose();
                 _cancellationTokenSource?.Dispose();
-                components?.Dispose();
             }
 
             base.Dispose(disposing);
