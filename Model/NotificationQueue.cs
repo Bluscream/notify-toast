@@ -17,7 +17,7 @@ namespace NotificationBanner.Model {
                     return;
                 }
                 _queue.Enqueue(config);
-                Console.WriteLine($"[Queue] Enqueued notification: {config?.Title} - {config?.Message}");
+                // Console.WriteLine($"[Queue] Enqueued notification: {config?.Title} - {config?.Message}");
             }
         }
 
@@ -25,7 +25,7 @@ namespace NotificationBanner.Model {
             lock (_lock) {
                 var result = _queue.TryDequeue(out config);
                 if (result && config != null)
-                    Console.WriteLine($"[Queue] Dequeued notification: {config?.Title} - {config?.Message}");
+                    // Console.WriteLine($"[Queue] Dequeued notification: {config?.Title} - {config?.Message}");
                 if (_queue.IsEmpty && _skipped > 0) {
                     // Add a notification about skipped items
                     var skippedMsg = $"{_skipped} notifications were skipped.";

@@ -213,15 +213,21 @@ timeout /t 3 /nobreak >nul
 echo.
 
 :TEST_13
-REM Test 13: Exit after notification (final test)
-echo Test 13: Exit after notification (should exit immediately)
+echo Test 13: Overfill the notification queue (should skip some notifications)
+for /L %%i in (1,1,120) do (
+    %START_CMD_MIN% --message "Notification %%i" --title "Queue Overfill Test" --time 1
+)
+timeout /t 5 /nobreak >nul
+echo.
+
+:TEST_14
+echo Test 14: Exit after notification (should exit immediately)
 %START_CMD_MIN% --message "This notification should exit the app" --title "Exit Test" --exit --time %DEFAULT_TIME%
 timeout /t 2 /nobreak >nul
 echo.
 
-:TEST_13b
-REM Test 13b: notification after exit (should spawn new process)
-echo Test 13b: Notification after exit
+:TEST_14b
+echo Test 14b: Notification after exit
 %START_CMD_MIN% --message "this is after exit" --title "After Exit Test" --time %DEFAULT_TIME%
 timeout /t 3 /nobreak >nul
 echo.

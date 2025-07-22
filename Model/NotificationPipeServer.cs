@@ -13,11 +13,15 @@ namespace NotificationBanner.Model {
                     using (var server = new NamedPipeServerStream(PipeName, PipeDirection.In)) {
                         await server.WaitForConnectionAsync();
                         using (var reader = new StreamReader(server)) {
+                            var pidLine = await reader.ReadLineAsync();
                             var json = await reader.ReadToEndAsync(); // Will finish when client closes pipe
                             if (!string.IsNullOrWhiteSpace(json)) {
                                 try {
+                                    int pid = -1;
+                                    if (!string.IsNullOrWhiteSpace(pidLine))
+                                        int.TryParse(pidLine, out pid);
                                     var config = JsonSerializer.Deserialize<Config>(json);
-                                    Console.WriteLine($"[PipeServer] Received notification: {config?.Title} - {config?.Message}");
+                                    Console.WriteLine($"[PipeServer] Received notification from PID {pid}: {config?.Title} - {config?.Message}");
                                     if (config != null) onNotificationReceived(config);
                                 } catch (Exception ex) {
                                     Console.WriteLine($"[PipeServer] Error deserializing notification: {ex.Message}");
@@ -26,7 +30,6 @@ namespace NotificationBanner.Model {
                                 Console.WriteLine("[PipeServer] Received empty notification JSON.");
                             }
                         }
-                        Console.WriteLine("[PipeServer] Pipe connection closed.");
                     }
                 }
             });
@@ -37,9 +40,11 @@ namespace NotificationBanner.Model {
                     client.Connect(2000); // 2s timeout
                     var json = System.Text.Json.JsonSerializer.Serialize(config);
                     using (var writer = new StreamWriter(client) { AutoFlush = true }) {
+                        int pid = System.Diagnostics.Process.GetCurrentProcess().Id;
+                        writer.WriteLine(pid);
                         writer.Write(json);
                         writer.Flush();
-                        Console.WriteLine($"[PipeClient] Sent notification: {config?.Title} - {config?.Message}");
+                        Console.WriteLine($"[PipeClient] Sent notification: {config?.Title} - {config?.Message} (PID {pid})");
                     }
                 }
             } catch (Exception ex) {
