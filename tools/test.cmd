@@ -35,35 +35,36 @@ set DEFAULT_TIME=1
 REM Allow user to jump to a specific test by passing /test:X or --test:X or -test:X
 set "TEST_JUMP="
 for %%A in (%*) do (
-    set "ARG=%%A"
-    call :CHECK_TEST_JUMP
+    if /I "%%A"=="/test:14a" set "TEST_JUMP=14a"
+    if /I "%%A"=="/test:14b" set "TEST_JUMP=14b"
+    if /I "%%A"=="/test:14c" set "TEST_JUMP=14c"
+    if /I "%%A"=="/test:14d" set "TEST_JUMP=14d"
+    if /I "%%A"=="/test:14e" set "TEST_JUMP=14e"
+    if /I "%%A"=="/test:1" set "TEST_JUMP=1"
+    if /I "%%A"=="/test:3b" set "TEST_JUMP=3b"
+    if /I "%%A"=="/test:3c" set "TEST_JUMP=3c"
+    if /I "%%A"=="/test:3d" set "TEST_JUMP=3d"
+    if /I "%%A"=="/test:3e" set "TEST_JUMP=3e"
+    if /I "%%A"=="/test:3f" set "TEST_JUMP=3f"
+    if /I "%%A"=="/test:3g" set "TEST_JUMP=3g"
+    if /I "%%A"=="/test:5" set "TEST_JUMP=5"
+    if /I "%%A"=="/test:6" set "TEST_JUMP=6"
+    if /I "%%A"=="/test:7" set "TEST_JUMP=7"
+    if /I "%%A"=="/test:7b" set "TEST_JUMP=7b"
+    if /I "%%A"=="/test:7c" set "TEST_JUMP=7c"
+    if /I "%%A"=="/test:8" set "TEST_JUMP=8"
+    if /I "%%A"=="/test:9" set "TEST_JUMP=9"
+    if /I "%%A"=="/test:10" set "TEST_JUMP=10"
+    if /I "%%A"=="/test:11" set "TEST_JUMP=11"
+    if /I "%%A"=="/test:11b" set "TEST_JUMP=11b"
+    if /I "%%A"=="/test:12" set "TEST_JUMP=12"
+    if /I "%%A"=="/test:13" set "TEST_JUMP=13"
+    if /I "%%A"=="/test:13b" set "TEST_JUMP=13b"
 )
-goto :AFTER_TEST_JUMP_PARSE
-
-:CHECK_TEST_JUMP
-    setlocal enabledelayedexpansion
-    set "A=!ARG!"
-    if /I "!A:~0,6!"=="/test:" (
-        endlocal & set "TEST_JUMP=!A:~6!" & goto :EOF
-    )
-    if /I "!A:~0,7!"=="--test:" (
-        endlocal & set "TEST_JUMP=!A:~7!" & goto :EOF
-    )
-    if /I "!A:~0,6!"=="-test:" (
-        endlocal & set "TEST_JUMP=!A:~6!" & goto :EOF
-    )
-    endlocal
-    goto :EOF
-
-:AFTER_TEST_JUMP_PARSE
 
 REM Jump to the requested test if specified
 if defined TEST_JUMP (
-    call :CHECK_LABEL_EXISTS "TEST_%TEST_JUMP%"
-    if errorlevel 1 (
-        echo The test label TEST_%TEST_JUMP% does not exist.
-        goto :END
-    )
+    echo Jumping to test %TEST_JUMP%...
     goto TEST_%TEST_JUMP%
 )
 
