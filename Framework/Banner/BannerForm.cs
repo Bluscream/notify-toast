@@ -75,7 +75,7 @@ namespace NotificationBanner.Banner {
             }
 
             if (data.Image != null)
-                ; // pbxLogo.Image = data.Image; // Remove or replace as needed
+                // pbxLogo.Image = data.Image; // Remove or replace as needed
 
             _hiding = false;
             Opacity = .9;
