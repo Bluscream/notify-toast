@@ -134,7 +134,7 @@ namespace NotificationBanner.Banner {
                         byte r = Convert.ToByte(colorStr.Substring(2, 2), 16);
                         byte g = Convert.ToByte(colorStr.Substring(4, 2), 16);
                         byte b = Convert.ToByte(colorStr.Substring(6, 2), 16);
-                        color = Color.FromArgb(r, g, b); // Use RGB only for BackColor
+                        color = Color.FromArgb(r, g, b); // Use RGB for BackColor
                         opacity = a / 255.0;
                     } else if (colorStr.Length == 6) { // RRGGBB
                         byte r = Convert.ToByte(colorStr.Substring(0, 2), 16);
@@ -143,7 +143,7 @@ namespace NotificationBanner.Banner {
                         color = Color.FromArgb(r, g, b);
                         opacity = 0.9;
                     } else {
-                        color = BackColor;
+                        color = Color.FromArgb(45, 45, 45);
                     }
                     BackColor = color;
                     Opacity = opacity;
